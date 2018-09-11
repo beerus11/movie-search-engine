@@ -1,4 +1,7 @@
 var express = require('express');
+var cache = require('express-redis-cache')({
+    host: '127.0.0.1', port: 6379
+});
 var router = express.Router();
 
 var knex = require('../db/knex');
@@ -25,6 +28,7 @@ router.get('/movies/:index', function (req, res, next) {
 });
 
 router.get('/movies/search/:query', function (req, res, next) {
+    res.express_redis_cache_name = req.params.query+'-' + req.params.userid;
     var q = '%' + req.params.query + '%';
     console.log(q);
     Movies().where('movie_title', 'like', q).orWhere('movie_genre', 'like', q).orderBy('movie_title', 'desc').then(function (results) {
