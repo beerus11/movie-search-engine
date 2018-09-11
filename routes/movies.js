@@ -27,7 +27,7 @@ router.get('/movies/:index', function (req, res, next) {
 router.get('/movies/search/:query', function (req, res, next) {
     var q = '%' + req.params.query + '%';
     console.log(q);
-    Movies().where('movie_title', 'like', q).orWhere('movie_genre', 'like', q).then(function (results) {
+    Movies().where('movie_title', 'like', q).orWhere('movie_genre', 'like', q).orderBy('movie_title', 'desc').then(function (results) {
         res.send(results)
     });
 });
