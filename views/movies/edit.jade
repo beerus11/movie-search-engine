@@ -1,0 +1,7 @@
+extends ../layout
+
+block content
+  if album
+    h1 Editing #{movie.name}
+    form(action='/movies/#{movie.movieId}/edit', _method='put' method='post')
+      include ./fields.jade

@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+    if movie
+        div.well.well-lg
+            h1 Showing movie:
+                span= movie.name
+
+            p Title:
+                span= movie.movie_title
+
+            p Genre:
+                span= movie.movie_genre
+            p Rating:
+                span= movie.movie_rating
+            p Release Date:
+                span= movie.movie_release_date
+            p
+                a.btn-link(href='/movies/' + movie.movieId + '/edit') Edit
+            form(action='/movies/#{movie.movieId}/delete' method='post')
+            input.btn.btn-link(value='Delete')

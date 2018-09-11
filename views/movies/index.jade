@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  h1 Movies
+
+  a(href="/movies/new") New Movie
+
+  if movies
+    table.table.table-striped
+      thead
+        tr
+          th Title
+          th Genre
+          th Rating
+          th Release Date
+      tbody
+        for movie in movies
+          tr
+            td= movie.movie_title
+            td= movie.movie_genre
+            td=movie.movie_rating
+            td=movie.movie_release_date
+            td: a(href="/movies/"+movie.movieId id="movie.movieId")= movie.movie_title

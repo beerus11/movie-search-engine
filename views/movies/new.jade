@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+
+  div.container
+    h1 New Movie
+    form(action='/movies' method='post')
+      include ./fields.jade
