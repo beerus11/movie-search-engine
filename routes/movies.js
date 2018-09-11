@@ -28,13 +28,16 @@ router.get('/movies/:index', function (req, res, next) {
 });
 
 router.get('/movies/search/:query', function (req, res, next) {
-    res.express_redis_cache_name = req.params.query+'-' + req.params.userid;
-    var q = '%' + req.params.query + '%';
-    console.log(q);
-    Movies().where('movie_title', 'like', q).orWhere('movie_genre', 'like', q).orderBy('movie_title', 'desc').then(function (results) {
-        res.send(results)
+        res.express_redis_cache_name = req.params.query + '-' + req.params.userid;
+        next();
+    }, cache.route(),
+    function (req, res) {
+        var q = '%' + req.params.query + '%';
+        console.log(q);
+        Movies().where('movie_title', 'like', q).orWhere('movie_genre', 'like', q).orderBy('movie_title', 'desc').then(function (results) {
+            res.send(results)
+        });
     });
-});
 
 router.get('/movies/:id/edit', function (req, res, next) {
     var id = req.params.id;
